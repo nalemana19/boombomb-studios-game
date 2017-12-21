@@ -1,0 +1,69 @@
+import random
+x = random.randint(12, 27)
+y = random.randint(17, 27)
+a = random.randint(30, 40)
+if x == 20:
+    decision = input(str("There is a key, should I pick it up? "))
+    if decision == "yes":
+        print "I picked up the key."
+    elif decision == "no":
+        print input(str("Do I need a key for later?"))
+    else:
+        print "you can't do that!"
+if x == 23:
+    idea = input(str("there is a carrot on the floor. should I pick it up?"))
+    if idea == "yes":
+        print("You have gained " + str( y ) + " health")
+    elif idea == "no":
+        print("I should not pick it up")
+    else:
+        print("yes or no?")
+if x == 19:
+    something = input(str("I see something it looks big and it's coming for me.What is it?"))
+    if something == "It is a fly":
+        print("time to fight")
+    elif something == "I dont know":
+        print("You see the fly coming to attack you. Time to prepare")
+    else:
+        print("It is coming to attack you.")
+if x == 24:
+    pidea = input(str("Theres a potato on the ground, Should I pick it up or not?"))
+    if pidea == "yes":
+        print("You have gained " + str( y )  + " health")
+    elif pidea == "no":
+        print("Good idea I think, It looks like it has been on the ground for a day")
+    else:
+        print("Ok then I guess not")
+if x == 17:
+    onion = input(str("there is an onion on the floor. should I pick it up?"))
+    if onion == "yes":
+        print("You have gained " + str( y ) + " health")
+    elif onion == "no":
+        print("Never liked onions expecially now, I will not eat it")
+    else:
+        print("I should not pick it up")
+if x == 18:
+    green = input(str("there is spinach on the floor. should I pick it up?"))
+    if green == "yes":
+        print("You have gained " + str( y ) + " health")
+    elif green == "no":
+        print("Disgusting I always hated spinach")
+    else:
+        print("Ok then not picking it up")
+if x == 16:
+    print("Ouch! Stupid cow stepped on my Foot, I lost " + str( a ) + " health")
+if x == 15:
+    print("Ouch! The pig has just bit me! I lost " + str( y ) + " health")
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
