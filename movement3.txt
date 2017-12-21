@@ -1,0 +1,147 @@
+'''
+adventure game movement v0.5
+uses a list "movement" that contains your decisions
+if there is a choice that must be omitted, remove it from the list
+run the function again if there is a bad input
+'''
+import random
+'''random trip stuff
+just thought it would add an element of surprise
+'''
+trip = False
+def trip():
+    rando = random.randint(0, 40)
+    if rando <= 8:
+        print "you tripped!"
+        trip = True
+    
+
+'''
+improvement from older versions:
+now using variables to to reduce the amount of
+text in the lists, also prevents having to 
+keep referencing the same thing (what are variables used for? oh yeah)
+'''
+l = "left"
+r = "right"
+f = "forward"
+b = "backward"
+
+'''
+def move4(): #4 movement options
+    movement = [a, b, c, d] 
+    userdir = input(str("you can move left, right, forward or backward. which way do you move? "))
+    if userdir in movement:
+        if userdir == "left":
+            print("you went left.")
+        elif userdir == "right":
+            print("you went right.")
+        elif userdir == "forward":
+            print("you went forward.")
+        elif userdir == "backward":
+            print("you went backward.")
+    else:
+        print("you can't do that!") #prevent the user from typing in crap that doesn't relate 
+        move4()
+    trip()
+
+def move3():
+    movement = [a, c, d]
+    userdir = input(str("you can move left, forward or backward. which way do you move? "))
+    if userdir in movement:
+        if userdir == "left":
+            print("you went left.")
+        elif userdir == "forward":
+            print("you went forward.")
+        elif userdir == "backward":
+            print("you went backward.")
+    else:
+        print("you can't do that!") #prevent the user from typing in a bad direction or random crap
+        move3()
+    trip()
+
+def move2():
+    movement = [a, d]
+    userdir = input(str("you can move left or backward. which way do you move? "))
+    if userdir in movement:
+        if userdir == "left":
+            print("you went left.")
+        elif userdir == "backward":
+            print("you went backward.")
+    else:
+        print("you can't do that!")
+        move2()
+    trip()
+
+x = 0
+while x <= 2:
+    move4()
+    move3()
+    move2()
+    x += 1
+'''  
+
+
+'''
+more code-efficient version of the functions above
+requires more testing for stability
+'''
+
+moves = 0
+movelog = []
+
+def move4(): #4 movement options
+    movement = [l, r, f, b] 
+    userdir = input(str("you can move left, right, forward or backward. which way do you move? "))
+    if userdir in movement:
+        print "you went " + str(userdir) + "."
+        movelog.append (userdir)
+        global moves
+        moves += 1
+        trip()
+    else:
+        print("you can't do that!") #prevent the user from typing in crap that doesn't relate 
+        move4()
+move4()
+
+def move3(): #4 movement options
+    movement = [l, f, b] 
+    userdir = input(str("you can move left, forward or backward. which way do you move? "))
+    if userdir in movement:
+        print "you went " + str(userdir) + "."
+        movelog.append (userdir)
+        global moves
+        moves += 1
+        trip()
+    else:
+        print("you can't do that!")
+        move3()
+move3()
+
+
+'''
+movement tracking testing
+work in progress
+'''
+
+print moves
+print movelog
+
+if movelog[0] == l:
+    print "there are carrots beside you. look at them?"
+    decide = input(str("yes or no "))
+    if decide == "yes":
+        print "you looked at the carrots."
+    elif decide == "no":
+        print "what else to do?"
+    else:
+        print "you can't do that!"
+elif movelog[0] == r:
+    print "there are green vegetables beside you. look at them?"
+    decide = input(str("yes or no "))
+    if decide == "yes":
+        print "you looked at the greens."
+    elif decide == "no":
+        "what else to do?"
+    else:
+        print "you can't do that!"

@@ -1,0 +1,77 @@
+'''
+adventure game movement v0.25
+uses a list "movement" that contains your decisions
+if there is a choice that must be omitted, remove it from the list
+loop the function again if there is a bad input
+'''
+import random
+'''random trip stuff
+just thought it would add an element of surprise
+'''
+def trip():
+    rando = random.randint(0, 40)
+    if rando <= 8:
+        print "you tripped!"
+
+a = "left"
+b = "right"
+c = "forward"
+d = "backward"
+
+def move4(): #4 movement options
+    movement = [a, b, c, d] 
+    userdir = input(str("you can move left, right, forward or backward. which way do you move? "))
+    if userdir in movement:
+        if userdir == "left":
+            print("you went left.")
+        elif userdir == "right":
+            print("you went right.")
+        elif userdir == "forward":
+            print("you went forward.")
+        elif userdir == "backward":
+            print("you went backward.")
+    else:
+        print("you can't do that!") #prevent the user from typing in crap that doesn't relate 
+        move4()
+    trip()
+move4()
+
+def move3():
+    movement = [a, c, d]
+    userdir = input(str("you can move left, forward or backward. which way do you move? "))
+    if userdir in movement:
+        if userdir == "left":
+            print("you went left.")
+        elif userdir == "forward":
+            print("you went forward.")
+        elif userdir == "backward":
+            print("you went backward.")
+    else:
+        print("you can't do that!") #prevent the user from typing in a bad direction or random crap
+        move3()
+    trip()
+move3()
+
+def move2():
+    movement = [a, d]
+    userdir = input(str("you can move left or backward. which way do you move? "))
+    if userdir in movement:
+        if userdir == "left":
+            print("you went left.")
+        elif userdir == "backward":
+            print("you went backward.")
+    else:
+        print("you can't do that!")
+        move2()
+    trip()
+move2()
+
+x = 0
+while x <= 20:
+    move4()
+    move3()
+    move2()
+    x += 1
+
+
+
