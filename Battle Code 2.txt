@@ -1,0 +1,165 @@
+import random
+import math
+"""
+After closet door, 20% chance for enemy to appear per step
+Each tool does different damage
+    Knife
+    Axe
+    Pot
+    Hoe
+    Rake
+    Hammer
+    Spade
+    Scythe
+    Pitchfork
+    Scissors
+    Shears
+Each enemy has between 10-50 health
+Turn based, if user hits, does random amount of damage, enemy hits after, chance of miss
+User starts with 100 health
+https://docs.python.org/2/library/random.html
+
+health = health of user
+enemy_health = health of the enemy
+decision = input hit or run
+damage_done = damage done by user
+damage_taken = damage done by enemy
+a = chance of user hitting/missing
+c = chance of user successfully running away
+enemy_hit = chance of enemy hitting/missing
+"""
+
+#Player health
+health = 100
+
+#default damage
+(min_damage, max_damage) = (0, 10)
+
+inventory = ["pot", "flashlight"]
+
+if "knife" in inventory:
+    (min_damage, max_damage) = (5, 15)
+if "axe" in inventory:
+    (min_damage, max_damage) = (20, 30)
+if "pot" in inventory:
+    health += 50
+if "hoe" in inventory:
+    (min_damage, max_damage) = (10, 20)
+if "rake" in inventory:
+    (min_damage, max_damage) = (12, 22)
+if "hammer" in inventory:
+    (min_damage, max_damage) = (9, 19)
+if "spade" in inventory:
+    (min_damage, max_damage) = (11, 21)
+if "scythe" in inventory:
+    (min_damage, max_damage) = (19, 29)
+if "pitchfork" in inventory:
+    (min_damage, max_damage) = (17, 27)
+if "scissors" in inventory:
+    (min_damage, max_damage) = (7, 17)
+if "shears" in inventory:
+    (min_damage, max_damage) = (8, 18)
+
+#Enemy appears, user can hit or run. 60% chance of hitting, 30% of running.
+#Player should take damage after every hit/run decision
+def battle():
+    #Makes user health global
+    global health
+    print("You encountered an enemy!")
+    enemy_health = random.randint(10, 50)
+    print("User health: " + str(health))
+    print("Enemy health: " + str(enemy_health))
+    print
+    
+    damage_taken = random.randint(int(enemy_health/5), int(enemy_health/6))
+    #While loop runs until enemy has health lower than 0 (died)
+    while enemy_health > 0:
+        damage_done = random.randint(min_damage, max_damage)
+        #If user has health less than 0, prints "you have died" and stops while loop
+        if health <= 0:
+            print("You have died.")
+            break
+        print
+        decision = input("hit or run? ")
+
+        if decision == "hit":
+            print
+            a = random.randint(0, 10)
+            if a < 4:
+                print("You missed!")
+                print("Enemy health: " + str(enemy_health))
+                print
+                enemy_hit = random.randint(0, 10)
+                if enemy_hit <= 7:
+                    health -= damage_taken
+                    print("Enemy dealt " + str(damage_taken) + " damage")
+                else:
+                    print("Enemy missed")
+                print("User health: " + str(health))
+            else:
+                #Damage depends on tools
+                damage_done
+                enemy_health -= damage_done
+                print("You dealt " + str(damage_done) + " damage")
+                print("Enemy health: " + str(enemy_health))
+                if enemy_health > 0:
+                    print
+                    enemy_hit = random.randint(0, 10)
+                    if enemy_hit <= 7:
+                        health -= damage_taken
+                        print("Enemy dealt " + str(damage_taken) + " damage")
+                    else:
+                        print("Enemy missed")
+                print("User health: " + str(health))
+
+        if decision == "run":
+            c = random.randint(0, 10)
+            if c < 3:
+                print("You have successfully run away!")
+                break
+            else:
+                print
+                print("Run failed!")
+                health -= damage_taken
+                print("Enemy health: " + str(enemy_health))
+                print
+                print("Enemy dealt " + str(damage_taken) + " damage")
+                print("User health: " + str(health))
+    if enemy_health <= 0:
+        print("You have defeated the enemy!")
+    print
+    print
+
+
+def trip():
+    trip = False
+    rando = random.randint(0, 40)
+    print rando
+    if rando <= 8:
+        print "you tripped!"
+        trip = True
+    if trip == True:
+        chance = random.randint(0, 10)
+        print chance
+        if chance < 5:
+            battle()
+trip()
+"""
+battle()
+print
+if health > 0:
+    battle()
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
