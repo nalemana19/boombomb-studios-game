@@ -1,0 +1,136 @@
+import random
+"""
+After closet door, 20% chance for enemy to appear per step
+Each tool does different damage
+    Knife
+    Axe
+    Pot
+    Hoe
+    Rake
+    Hammer
+    Spade
+    Scythe
+    Pitchfork
+    Scissors
+    Shears
+Each enemy has between 10-50 health
+Turn based, if user hits, does random amount of damage, enemy hits after, chance of miss
+User starts with 100 health
+https://docs.python.org/2/library/random.html
+
+health = health of user
+enemy_health = health of the enemy
+hit_or_run = input hit or run
+damage_done = damage done by user
+damage_taken = damage done by enemy
+a = chance of user hitting/missing
+c = chance of user successfully running away
+enemy_hit = chance of enemy hitting/missing
+min_damage = min amount of damage user does
+max_damage = max amount of damage user does
+spaces = for fancy spacing purposes
+inventory = list with chosen weapon
+enemies_defeated = number of enemeies defeated, is printed if user dies or exits room
+"""
+spaces = "----------------------------------------------------------------------"
+#Player health
+health = 100
+#default damage
+(min_damage, max_damage) = (1, 10)
+inventory = ["scissors"]
+if "knife" in inventory:
+    (min_damage, max_damage) = (10, 13)
+if "axe" in inventory:
+    (min_damage, max_damage) = (15, 20)
+if "pot" in inventory:
+    health += 50
+if "hoe" in inventory:
+    (min_damage, max_damage) = (13, 20)
+if "rake" in inventory:
+    (min_damage, max_damage) = (12, 19)
+if "hammer" in inventory:
+    (min_damage, max_damage) = (10, 12)
+if "scythe" in inventory:
+    (min_damage, max_damage) = (15, 20)
+if "pitchfork" in inventory:
+    (min_damage, max_damage) = (12, 19)
+if "scissors" in inventory:
+    (min_damage, max_damage) = (10, 12)
+if "shears" in inventory:
+    (min_damage, max_damage) = (10, 13)
+
+enemies_defeated = 0
+#Enemy appears, user can hit or run. 60% chance of hitting, 30% of running.
+#Player should take damage after every hit/run decision
+def battle():
+    #Makes user health global
+    global health
+    global enemies_defeated
+    print spaces
+    print("You encountered an enemy!")
+    enemy_health = random.randint(20, 70)
+    print("Enemy health: " + str(enemy_health))
+    print("User health: " + str(health))
+    
+    #While loop runs until enemy has health lower than 0 (died)
+    while enemy_health > 0:
+        damage_taken = random.randint(int(enemy_health/6), int(enemy_health/4))
+        if damage_taken <= 0:
+            damage_taken = random.randint(1, 5)
+        damage_done = random.randint(min_damage, max_damage)
+        
+        if health <= 0:
+            print spaces
+            print("You have died.")
+            print("You defeated " + str(enemies_defeated) + " enemies.")
+            print spaces
+            break
+        
+        print spaces
+        hit_or_run = input("hit or run? ")
+        print
+        if hit_or_run == "hit":
+            a = random.randint(0, 10)
+            if a < 4:
+                print("You missed")
+                print("Enemy health: " + str(enemy_health))
+                print
+                enemy_hit = random.randint(0, 10)
+                if enemy_hit <= 7:
+                    health -= damage_taken
+                    print("Enemy dealt " + str(damage_taken) + " damage")
+                else:
+                    print("Enemy missed")
+                print("User health: " + str(health))
+            else:
+                damage_done
+                enemy_health -= damage_done
+                print("You dealt " + str(damage_done) + " damage")
+                print("Enemy health: " + str(enemy_health))
+                if enemy_health > 0:
+                    print
+                    enemy_hit = random.randint(0, 10)
+                    if enemy_hit <= 7:
+                        health -= damage_taken
+                        print("Enemy dealt " + str(damage_taken) + " damage")
+                    else:
+                        print("Enemy missed")
+                print("User health: " + str(health))
+
+        if hit_or_run == "run":
+            c = random.randint(0, 10)
+            if c < 3:
+                print("You have successfully run away!")
+                break
+            else:
+                print("Run failed!")
+                health -= damage_taken
+                print("Enemy health: " + str(enemy_health))
+                print
+                print("Enemy dealt " + str(damage_taken) + " damage")
+                print("User health: " + str(health))
+                
+        if enemy_health <= 0:
+            print spaces
+            print("You have defeated the enemy!")
+            enemies_defeated += 1
