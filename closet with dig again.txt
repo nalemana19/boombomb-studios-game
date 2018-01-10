@@ -1,0 +1,343 @@
+inventory = []
+tool_list = ["knife", "axe", "pot" , "hoe" , "rake" , "hammer" , "scythe" , 
+"pitchfork" , "scissors" , "shears" ] 
+directions = ["right" , "left" , "around"] 
+name = '' 
+spaces = "----------------------------------------------------------------------"
+def name():
+    name = str(input("What is your name? ")) 
+    print "Nice to meet you, " + name + "."
+    print spaces 
+def turn_right(): 
+    print "You feel a flashlight in front of you," 
+    print "would you like to take it?"
+    answer3 = input ("Yes or no? ")
+    print spaces
+    if answer3 == "yes":
+        answer3 = "valid"
+        print "You picked up the flashlight!"
+        inventory.append("flashlight")
+        print "Flashlight has been added to your inventory."
+        print "You return to facing the door." 
+        directions.remove("right")
+    elif answer3 == "no": 
+        answer3 = "valid"
+        print "You should probably take it, just in case." 
+        inventory.append("flashlight")
+        print "Flashlight has been added to your inventory." 
+        print "You return to facing the door."
+        directions.remove("right")
+    else: 
+       print "That response is not valid."
+       print spaces
+    while answer3 != "valid":
+        print "Would you like to take it?"
+        answer3 = input ("Yes or no? ")
+        if answer3 == "yes":
+            answer3 = "valid"
+            print "You picked up the flashlight!"
+            inventory.append("flashlight")
+            print "Flashlight has been added to your inventory." 
+            print "You return to facing the door." 
+            directions.remove("right")
+        elif answer3 == "no": 
+            answer3 = "valid"
+            print "You should probably take it, just in case." 
+            inventory.append("flashlight")
+            print "Flashlight has been added to your inventory." 
+            print "You return to facing the door."
+            directions.remove("right")
+        else: 
+           print "That response is not valid."
+           print spaces
+def turn_left(): 
+    print "You are at the wall with the tools,"
+    print "There is a spade, you could use that to dig to the manure"
+    print "to see if there is anything important in there."
+    print "Spade added to inventory!"
+    inventory.append("spade")
+    print spaces
+    print "Pick another tool, it might come in handy later." 
+    print tool_list 
+    picked_tool = str(input("Which tool do you want to take? "))
+    print spaces
+    if picked_tool not in tool_list:
+        print "That tool is not in the list!"
+        picked_tool = str(input("Pick your tool: "))
+        print spaces
+        inventory.append(picked_tool)
+        print ("You have added " + picked_tool + " to your inventory!")
+    else: 
+        inventory.append(picked_tool)
+        directions.remove("left")
+        print ("You have added " + picked_tool + " to your inventory!")
+    
+    print "You return to facing the door" 
+def at_manure():
+    print "You are at the manure,"
+    answer6 = str(input("would you like to dig through it to see if there is anything that could be useful? "))
+    print spaces
+    if answer6 == "yes":
+        answer6 = "valid"
+        print "You dig through the manure, man does it smell."
+        print "You have found a key!"
+        print "You should try this key in the door."
+        open_door = str(input("Do you want to try the lock? "))
+        print spaces
+        if open_door == "yes":
+            open_door = "valid"
+            print "You try the lock, and it turns!"
+            print "You turn the doorknob and open the door slowly."
+            print "You step outside the door as your flashlight casts an eerie light"
+            print "over the entire room in front of you"
+            print "It seems that you are now in some sort of agricultural center,"
+            print "You should try to find a way out."
+        elif open_door == "no": 
+            look_again = str(input("Do you want to dig through the manure again? "))
+            print spaces
+            if look_again == "yes":
+                    print "You dig through the manure again, and look!"
+                    print "You found another key, I wonder what this one is for..."
+                    inventory.append("other key")
+                    print "This new key has been added to your inventory."
+                    print spaces 
+                    print "You are not strong enough to carry any more tools"
+                    print "so there is nothing else to do in here." 
+                    print spaces 
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print "You step outside the door as your flashlight casts an eerie light"
+                    print "over the entire room in front of you"
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+                    open_door = "valid"
+            elif look_again == "no": 
+                    open_door = "valid"
+                    print "You should try the door anyways, you could remain in danger if you stay in here."
+                    print spaces
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print "You step outside the door as your flashlight casts an eerie light"
+                    print "over the entire room in front of you"
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+            else:
+                    print "That response is not valid."
+        else:
+            print "That response is not valid."
+    elif answer6 == "no":
+        answer6 = "valid"
+        open_door = "not valid" 
+        print "You should dig anyways, there is no other way out besides the door,"
+        print "maybe there is a key or something in there."
+        print "You dig through the manure, man does it smell."
+        print "You have found a key!"
+        print "You should try this key in the door."
+    else:
+        print "That response is not valid."
+        
+    while answer6 != "valid":
+        print spaces 
+        answer6 = str(input("Would you like to dig through it to see if there is anything that could be useful? "))
+        print spaces
+        if answer6 == "yes":
+            answer6 = "valid"
+            print "You dig through the manure, man does it smell."
+            print "You have found a key!"
+            print "You should try this key in the door."
+            print spaces
+            print "You are not strong enough to take another tool"
+            print "so there is nothing else you can do in here."
+            open_door = str(input("Do you want to try the lock? "))
+            print spaces
+            if open_door == "yes":
+                open_door = "valid"
+                print "You try the lock, and it turns!"
+                print "You turn the doorknob and open the door slowly."
+                print "You step outside the door as your flashlight casts an eerie light"
+                print "over the entire room in front of you"
+                print "It seems that you are now in some sort of agricultural center,"
+                print "You should try to find a way out."
+            elif open_door == "no": 
+                look_again = str(input("Do you want to dig through the manure again? "))
+                print spaces
+                if look_again == "yes":
+                    print "You dig through the manure again, and look!"
+                    print "You found another key, I wonder what this one is for..."
+                    inventory.append("other key")
+                    print "This new key has been added to your inventory."
+                    print "This new key has been added to your inventory."
+                    print spaces 
+                    print "You are not strong enough to carry any more tools"
+                    print "so there is nothing else to do in here." 
+                    print spaces 
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print "You step outside the door as your flashlight casts an eerie light"
+                    print "over the entire room in front of you"
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+                    open_door = "valid"
+                elif look_again == "no": 
+                    open_door = "valid"
+                    print "You should try the door anyways, you could remain in danger if you stay in here."
+                    print spaces
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print "You step outside the door as your flashlight casts an eerie light"
+                    print "over the entire room in front of you"
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+                else:
+                    print "That response is not valid."
+            else:
+                print "That response is not valid."
+        elif answer6 == "no":
+            answer6 = "valid"
+            print "You should dig anyways, there is no other way out besides the door,"
+            print "maybe there is a key or something in there."
+            print "You dig through the manure, man does it smell."
+            print "You have found a key!"
+            print "You should try this key in the door."
+        else:
+            print "That response is not valid."
+    while open_door != "valid":
+        open_door = str(input("Do you want to try the lock? "))
+        print spaces
+        if open_door == "yes":
+            open_door = "valid"
+            print "You try the lock, and it turns!"
+            print "You turn the doorknob and open the door slowly."
+            print "You step outside the door as your flashlight casts an eerie light"
+            print "over the entire room in front of you"
+            print "It seems that you are now in some sort of agricultural center,"
+            print "You should try to find a way out."
+        elif open_door == "no": 
+            look_again = str(input("Do you want to dig through the manure again? "))
+            print spaces
+            if look_again == "yes":
+                    print "You dig through the manure again, and look!"
+                    print "You found another key, I wonder what this one is for..."
+                    inventory.append("other key")
+                    print "This new key has been added to your inventory."
+                    print spaces 
+                    print "You are not strong enough to carry any more tools"
+                    print "so there is nothing else to do in here." 
+                    print spaces 
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print "You step outside the door as your flashlight casts an eerie light"
+                    print "over the entire room in front of you"
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+                    open_door = "valid"
+            elif look_again == "no": 
+                    open_door = "valid"
+                    print "You should try the door anyways, you could remain in danger if you stay in here."
+                    print spaces
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print "You step outside the door as your flashlight casts an eerie light"
+                    print "over the entire room in front of you"
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+            else:
+                    print "That response is not valid."
+        else:
+            print "That response is not valid."
+def intro():
+    print "You wake up and determine you are in a small room."
+    print "You quickly realize just how cramped it is in this room." 
+    print "You can feel a door in front of you,"
+    print "do you want to try to open it?"
+    answer = input("Yes or no? ")
+    print spaces
+    if answer == "yes":
+        print "You try to open the door, but it seems that it is locked." 
+        answer = "valid"
+    elif answer == "no":
+        print "Okay, see what you can find around the room." 
+        answer = "valid"
+    else:
+        print "That response is not valid." 
+    while answer != "valid" :
+        print "Do you want to try and open the door?"
+        answer = input("Yes or no? ")
+        print spaces
+        if answer == "yes":
+            print "You try to open the door, but it seems that it is locked." 
+            answer = "valid"
+        elif answer == "no":
+            print "Okay, see what you can find around the room." 
+            answer = "valid"
+        else:
+            print "That response is not valid."
+def first_turn():
+    answer2 = str(input("Would you like to turn around, turn left, or turn right? "))
+    print spaces
+    if answer2 == "right" :
+        turn_right()
+    elif answer2 == "left" : 
+        print "You run into a bunch of tools." 
+        print "You should probably return when you can actually tell the tools apart." 
+        print "You return to facing the door." 
+    elif answer2 == "around": 
+        print "Gross, you stepped in some manure."
+        print "Return when you have something to dig through it with." 
+        print "You return to facing the door." 
+    else:
+        print "That response is not valid."
+def second_turn(): 
+    answer4 = str(input("Would you like to turn around or left? "))
+    print spaces
+    if answer4 == "left":
+        turn_left()
+    elif answer4 == "around": 
+        print "Return when you have a tool to dig through"
+        print "this manure for something useful." 
+        print "You return to facing the door." 
+    else: 
+        print "That response is not valid." 
+def third_turn():
+    answer5 = str(input("Would you like to turn around? "))
+    print spaces
+    if answer5 == "yes":
+        answer5 = "valid"
+        at_manure()
+    elif answer5 == "no":
+        answer5 = "valid"
+        print "Well, there is nowhere else to turn, and the door is the only way out,"
+        print "you should dig through that pile to see if anything useful is in there."
+        print spaces
+        at_manure()
+    else: 
+        print "That response is not valid" 
+    while answer5 != "valid":
+
+        answer5 = str(input("Would you like to turn around? "))
+        print spaces
+        if answer5 == "yes":
+            answer5 = "valid"
+            at_manure()
+        elif answer5 == "no":
+            answer5 = "valid"
+            print "Well, there is nowhere else to turn, and the door is the only way out,"
+            print "you should dig through that pile to see if anything useful is in there."
+            print ""
+            at_manure()
+        else: 
+            print "That response is not valid" 
+            
+name()
+
+intro()
+
+while "flashlight" not in inventory:
+    first_turn()
+    print spaces
+    
+while "spade" not in inventory:
+    second_turn ()
+    print spaces
+
+third_turn()
