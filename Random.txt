@@ -2,14 +2,33 @@ import random
 x = random.randint(12, 27)
 y = random.randint(17, 27)
 a = random.randint(30, 40)
+key_fragments = 0
 if x == 20:
-    decision = input(str("There is a key, should I pick it up? "))
-    if decision == "yes":
-        print "I picked up the key."
-    elif decision == "no":
-        print input(str("Do I need a key for later?"))
-    else:
-        print "you can't do that!"
+    if key_fragments == 0: 
+        input(str("There is a key fragment, should I pick it up? "))
+        print "I picked up the key fragment. There are 3 remaining keys."
+        key_fragments += 1
+    elif key_fragments == 1: 
+        input(str("There is another key fragment, should I pick it up?"))
+        print "I picked up the key fragment. There are 2 remaining key fragments."
+        key_fragments += 1
+    elif key_fragments == 2:
+        decisiov = input(str("There is a third key fragment, should I pick it up?"))
+        if decisiov == "yes":
+            print "I picked up the key fragment. There is only 1  remaining key fragment."
+            key_fragments += 1
+        elif decisiov == "no":
+            print input(str("Perhaps I should pick it up."))
+        else:
+            print "you can't do that!"
+    elif key_fragments == 3:
+        input(str("There is a key fragment should I pick it up?"))
+        key_fragments += 1
+        print "a third key fragment one more to go."
+    elif key_fragments == 4:
+        input(str("There is a key fragment should I pick it up?"))
+        key_fragments += 1
+        print "thats it! I have all the keys!"
 if x == 23:
     idea = input(str("there is a carrot on the floor. should I pick it up?"))
     if idea == "yes":
@@ -54,8 +73,15 @@ if x == 16:
     print("Ouch! Stupid cow stepped on my Foot, I lost " + str( a ) + " health")
 if x == 15:
     print("Ouch! The pig has just bit me! I lost " + str( y ) + " health")
+if x == 26:
+    chicken = input(str("I see a chicken, should I pick it up or do nothing?"))
+    if chicken == "pick it up":
+        print("I picked up the chicken")
+    elif chicken== "pick it up and shake it":
+        print("The chicken lays an egg.")
+    else:
+        print("Why am I staring at this chicken anyway?")
 
-    
     
     
     
