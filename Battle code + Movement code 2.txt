@@ -1,0 +1,232 @@
+import random
+
+#Player health
+health = 100
+#default damage
+(min_damage, max_damage) = (0, 10)
+
+def battle():
+    #Makes user health global
+    global health
+    print("You encountered an enemy!")
+    enemy_health = random.randint(10, 50)
+    print("User health: " + str(health))
+    print("Enemy health: " + str(enemy_health))
+    print
+    
+    #While loop runs until enemy has health lower than 0 (died)
+    while enemy_health > 0:
+        damage_taken = random.randint(int(enemy_health/6), int(enemy_health/4))
+        damage_done = random.randint(min_damage, max_damage)
+        #If user has health less than 0, prints "you have died" and stops while loop
+        if health <= 0:
+            print("You have died.")
+            break
+        print
+        decision = input("hit or run? ")
+
+        if decision == "hit":
+            print
+            a = random.randint(0, 10)
+            if a < 4:
+                print("You missed")
+                print("Enemy health: " + str(enemy_health))
+                print
+                enemy_hit = random.randint(0, 10)
+                if enemy_hit <= 7:
+                    health -= damage_taken
+                    print("Enemy dealt " + str(damage_taken) + " damage")
+                else:
+                    print("Enemy missed")
+                print("User health: " + str(health))
+            else:
+                #Damage depends on tools
+                damage_done
+                enemy_health -= damage_done
+                print("You dealt " + str(damage_done) + " damage")
+                print("Enemy health: " + str(enemy_health))
+                if enemy_health > 0:
+                    print
+                    enemy_hit = random.randint(0, 10)
+                    if enemy_hit <= 7:
+                        health -= damage_taken
+                        print("Enemy dealt " + str(damage_taken) + " damage")
+                    else:
+                        print("Enemy missed")
+                print("User health: " + str(health))
+
+        if decision == "run":
+            c = random.randint(0, 10)
+            if c < 3:
+                print("You have successfully run away!")
+                break
+            else:
+                print
+                print("Run failed!")
+                health -= damage_taken
+                print("Enemy health: " + str(enemy_health))
+                print
+                print("Enemy dealt " + str(damage_taken) + " damage")
+                print("User health: " + str(health))
+    if enemy_health <= 0:
+        print("You have defeated the enemy!")
+    print
+    print
+'''
+adventure game movement v0.5
+uses a list "movement" that contains your decisions
+if there is a choice that must be omitted, remove it from the list
+run the function again if there is a bad input
+'''
+
+'''random trip stuff
+just thought it would add an element of surprise
+'''
+trip = False
+def trip():
+    rando = random.randint(0, 40)
+    if rando <= 8:
+        print "you tripped!"
+        trip = True
+        chance = random.randint(0, 10)
+        if chance < 5:
+            battle()
+'''
+improvement from older versions:
+now using variables to to reduce the amount of
+text in the lists, also prevents having to 
+keep referencing the same thing (what are variables used for? oh yeah)
+'''
+l = "left"
+r = "right"
+f = "forward"
+b = "backward"
+
+'''
+def move4(): #4 movement options
+    movement = [a, b, c, d] 
+    userdir = input(str("you can move left, right, forward or backward. which way do you move? "))
+    if userdir in movement:
+        if userdir == "left":
+            print("you went left.")
+        elif userdir == "right":
+            print("you went right.")
+        elif userdir == "forward":
+            print("you went forward.")
+        elif userdir == "backward":
+            print("you went backward.")
+    else:
+        print("you can't do that!") #prevent the user from typing in crap that doesn't relate 
+        move4()
+    trip()
+
+def move3():
+    movement = [a, c, d]
+    userdir = input(str("you can move left, forward or backward. which way do you move? "))
+    if userdir in movement:
+        if userdir == "left":
+            print("you went left.")
+        elif userdir == "forward":
+            print("you went forward.")
+        elif userdir == "backward":
+            print("you went backward.")
+    else:
+        print("you can't do that!") #prevent the user from typing in a bad direction or random crap
+        move3()
+    trip()
+
+def move2():
+    movement = [a, d]
+    userdir = input(str("you can move left or backward. which way do you move? "))
+    if userdir in movement:
+        if userdir == "left":
+            print("you went left.")
+        elif userdir == "backward":
+            print("you went backward.")
+    else:
+        print("you can't do that!")
+        move2()
+    trip()
+
+x = 0
+while x <= 2:
+    move4()
+    move3()
+    move2()
+    x += 1
+'''  
+
+
+'''
+more code-efficient version of the functions above
+requires more testing for stability
+'''
+
+moves = 0
+movelog = []
+
+def move4(): #4 movement options
+    movement = [l, r, f, b] 
+    userdir = input(str("you can move left, right, forward or backward. which way do you move? "))
+    if userdir in movement:
+        print "you went " + str(userdir) + "."
+        movelog.append (userdir)
+        global moves
+        moves += 1
+        trip()
+        if trip == False:
+            d = random.randint(0, 10)
+            print "d = " + str(d)
+            if d < 5:
+                battle()
+    else:
+        print("you can't do that!") #prevent the user from typing in crap that doesn't relate 
+        move4()
+move4()
+
+def move3(): #4 movement options
+    movement = [l, f, b] 
+    userdir = input(str("you can move left, forward or backward. which way do you move? "))
+    if userdir in movement:
+        print "you went " + str(userdir) + "."
+        movelog.append (userdir)
+        global moves
+        moves += 1
+        trip()
+        if trip == False:
+            d = random.randint(0, 10)
+            print "d = " + str(d)
+            if d < 5:
+                battle()
+    else:
+        print("you can't do that!")
+        move3()
+move3()
+
+
+'''
+movement tracking testing
+work in progress
+'''
+
+print moves
+print movelog
+
+if movelog[0] == l:
+    print "there are carrots beside you. look at them?"
+    decide = input(str("yes or no "))
+    if decide == "yes":
+        print "you looked at the carrots."
+    elif decide == "no":
+        print "what else to do?"
+    else:
+        print "you can't do that!"
+elif movelog[0] == r:
+    print "there are green vegetables beside you. look at them?"
+    decide = input(str("yes or no "))
+    if decide == "yes":
+        print "you looked at the greens."
+    elif decide == "no":
+        "what else to do?"
+    else:
+        print "you can't do that!"
