@@ -1,0 +1,114 @@
+inventory = []
+tool_list = ["knife", "axe", "pot" , "hoe" , "rake" , "hammer" , "spade" , "scythe" , 
+"pitchfork" , "scissors" , "shears" ] 
+weapons = [] 
+directions = ["right" , "left" , "around"] 
+
+def turn_right(): 
+    print "You feel a flashlight in front of you," 
+    print "would you like to take it?"
+    answer3 = input ("Yes or no? ")
+    if answer3 == "yes":
+        print "You picked up the flashlight!"
+        inventory.append("flashlight")
+        print "Flashlight has been added to your inventory." 
+        print "You return to facing the door." 
+    else: 
+        print "You should probably take it, just in case." 
+        inventory.append("flashlight")
+        print "Flashlight has been added to your inventory." 
+        print "You return to facing the door." 
+    directions.remove("right")
+
+def turn_left(): 
+    print "You are at the wall with the tools,"
+    print "There is a spade, you could use that to dig to the manure"
+    print "to see if there is anything important in there."
+    print "Spade added to inventory!"
+    inventory.append("spade")
+    weapons.append("spade")
+    tool_list.remove("spade")
+    print "Pick another tool, it might come in handy later." 
+    print tool_list 
+    picked_tool = str(input("Which tool do you want to take? "))
+    if picked_tool not in tool_list:
+        print "That tool is not in the list!"
+        picked_tool = str(input("Pick your tool "))
+        weapons.append(picked_tool) 
+        inventory.append(picked_tool)
+        print ("You have added " + picked_tool + " to your inventory!")
+    else: 
+        weapons.append(picked_tool) 
+        inventory.append(picked_tool)
+        directions.remove("left")
+        print ("You have added " + picked_tool + " to your inventory!")
+    	print "You return to facing the door" 
+
+def intro():
+    print "You wake up and determine you are in a small room."
+    print "You quickly realize just how cramped it is in this room." 
+    print "You can feel a door in front of you,"
+    print "do you want to try to open it?"
+    answer = input("Yes or no? ")
+    if answer == "yes":
+        print "You try to open the door, but it seems that it is locked." 
+    else:
+        print "Okay, see what you can find around the room." 
+    
+def first_turn(): 
+    answer2 = str(input("Would you like to turn around, turn left, or turn right? "))
+
+    if answer2 == "right" :
+        turn_right()
+        print directions
+    elif answer2 == "left" : 
+        print "You run into a bunch of tools." 
+        print "You should probably return when you can actually tell the tools apart." 
+        print "You return to facing the door." 
+    else: 
+        print "Gross, you stepped in some manure."
+        print "Return when you have something to dig through it with." 
+        print "You return to facing the door." 
+        
+def second_turn(): 
+    if directions[0] == "left" and directions[1] == "around":
+        answer4 = str(input("Would you like to turn " + directions[0] + " or " + directions[1] +  "? "))
+    else:
+        answer4 = str(input("Would you like to turn " + directions[0] + " or " + directions[1] + " or " + directions[2] + "? "))
+
+    if answer4 == "left":
+        if "flashlight" in inventory:
+           turn_left()
+           print directions 
+        else: 
+            print "You run into bunch of tools."
+            print "You should probably return when you can actually tell the tools apart."
+            print "You return to facing the door."
+            print directions 
+    elif answer4 == "right":
+        turn_right()
+        print directions 
+    elif answer4 == "around": 
+        print "Return when you have a tool to dig through"
+        print "this manure for something useful." 
+        print "You return to facing the door." 
+        print directions 
+
+#def third_turn():
+    #if directions[0] == "around":
+        #answer5 = str(input('Would you like to turn around? "))
+    #elif directions[0] == "left" and directions[1] == "around":
+        #answer5 = str(input 
+intro() 
+
+print ""
+
+first_turn()
+
+print ""
+
+second_turn()
+
+
+
+    
