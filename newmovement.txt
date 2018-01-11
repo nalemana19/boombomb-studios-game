@@ -6,8 +6,8 @@ import random
 just thought it would add an element of surprise
 '''
 def trip():
-    rando = random.randint(0, 80)
-    if rando <= 8:
+    rando = random.randint(0, 20)
+    if rando <= 5:
         print "you tripped!"
 
 
@@ -19,10 +19,11 @@ chi = "chickens"
 pi = "pigs"
 co = "cows"
 alreadyBeen = []
-keyFrags = 0
+keyFrags_global = 0
 
 print "You appear to be in some sort of agricultrual centre. You have to find a way out."
 def movement_plant():
+    global keyFrags_global
     decision = input("There are rows of carrots, greens, potatoes and onions. Which row do you go to? ")
     if decision == c and c not in alreadyBeen:
         alreadyBeen.append("carrots")
@@ -31,9 +32,27 @@ def movement_plant():
         if floorCarrot >= 13:
             idea = input("There is a carrot on the floor. Do you want to pick it up? ")
             if idea == "yes":
-                print("You have healed " + str(random.randint(1, 10)) + " health")
+                print("You have healed " + str(random.randint(1, 9)) + " health")
             elif idea == "no":
                 print("You didn't pick up the carrot.")
+            else:
+                print("yes or no?")
+        selectCrop = input("There are three crops you can shovel. Which one do you shovel? ")
+        while selectCrop != keyCrop:
+            print "You found nothing of interest..."
+            selectCrop = str(input("There are three crops you can shovel. Which one do you shovel? "))
+        print "You found a key fragment!"
+        keyFrags_global += 1
+    elif decision == g and g not in alreadyBeen:
+        alreadyBeen.append("greens")
+        floorCarrot = str(random.randint(1, 20))
+        keyCrop = str(random.randint(1, 3))
+        if floorCarrot >= 13:
+            idea = input("There is a lettuce on the floor. Do you want to pick it up? ")
+            if idea == "yes":
+                print("You have healed " + str(random.randint(1, 6)) + " health")
+            elif idea == "no":
+                print("You didn't pick up the lettuce.")
             else:
                 print("yes or no?")
         selectCrop = input("There are three crops you can shovel. Which one do you shovel?")
@@ -41,23 +60,52 @@ def movement_plant():
             print "You found nothing of interest..."
             selectCrop = str(input("There are three crops you can shovel. Which one do you shovel?"))
         print "You found a key fragment!"
-        keyFrags += 1
-        
-    elif decision == g and g not in alreadyBeen:
-        alreadyBeen.append("greens")
+        keyFrags_global += 1
     elif decision == p and p not in alreadyBeen:
         alreadyBeen.append("potatoes")
+        floorCarrot = str(random.randint(1, 20))
+        keyCrop = str(random.randint(1, 3))
+        if floorCarrot >= 13:
+            idea = input("There is a potato on the floor. Do you want to pick it up? ")
+            if idea == "yes":
+                print("You have healed " + str(random.randint(1, 15)) + " health")
+            elif idea == "no":
+                print("You didn't pick up the potato.")
+            else:
+                print("yes or no?")
+        selectCrop = input("There are three crops you can shovel. Which one do you shovel?")
+        while selectCrop != keyCrop:
+            print "You found nothing of interest..."
+            selectCrop = str(input("There are three crops you can shovel. Which one do you shovel?"))
+        print "You found a key fragment!"
+        keyFrags_global += 1
     elif decision == o and o not in alreadyBeen:
         alreadyBeen.append("onions")
+        floorCarrot = str(random.randint(1, 20))
+        keyCrop = str(random.randint(1, 3))
+        if floorCarrot >= 13:
+            idea = input("There is an onion on the floor. Do you want to pick it up? ")
+            if idea == "yes":
+                print("You have healed " + str(random.randint(1, 10)) + " health")
+            elif idea == "no":
+                print("You didn't pick up the onion.")
+            else:
+                print("yes or no?")
+        selectCrop = input("There are three crops you can shovel. Which one do you shovel?")
+        while selectCrop != keyCrop:
+            print "You found nothing of interest..."
+            selectCrop = str(input("There are three crops you can shovel. Which one do you shovel?"))
+        print "You found a key fragment!"
+        keyFrags_global += 1
     else:
         print "you can't do that!"
-    trip()
-
-while keyFrags < 4:
+    
+while keyFrags_global < 4:
     movement_plant()
     
 print "There are no more key fragments in the planting rows, so you move on to the animal pens."
 def movement_meat():
+    global keyFrags_global
     whichPen = input("There are pens of chickens, pigs and cows. The chicken pen is locked. Which pen do you go to? ")
     haveFrag = False
     whichFrag = random.randint(1, 3)
@@ -108,13 +156,19 @@ def movement_meat():
         if checkPig == "yes":
             if whichFrag == 3:
                 print "You checked the pig. There is a key fragment on its back!"
-                keyFrags += 1
+                keyFrags_global += 1
             else: 
                 print "The pig just looks at you."
         if owPig == 1:
             print("Ouch! The pig has just bit you! You lost " + str(random.randint(1, 10)) + " health.")
             
-            
-while keyFrags == 4:
+
+while keyFrags_global == 4:
     movement_meat()
+    
+print "You found all the key fragments! You can now escape!" 
+print "END"
+
+
+
 
