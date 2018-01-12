@@ -1,0 +1,646 @@
+inventory = []
+tool_list = ["knife", "axe", "pot" , "hoe" , "rake" , "hammer" , "scythe" , 
+"pitchfork" , "scissors" , "shears" ] 
+directions = ["right" , "left" , "around"] 
+name = '' 
+spaces = "----------------------------------------------------------------------"
+end = "You step outside the door as your flashlight casts an eerie light \nover the entire room in front of you."
+def name():
+    name = str(input("What is your name? ")) 
+    print "Nice to meet you, " + name + "."
+    print spaces 
+def turn_right(): 
+    print "You feel a flashlight in front of you, \nwould you like to take it?"
+    answer3 = input ("Yes or no? ")
+    print spaces
+    if answer3 == "yes":
+        answer3 = "valid"
+        print "You picked up the flashlight!"
+        inventory.append("flashlight")
+        print "Flashlight has been added to your inventory."
+        print "You return to facing the door." 
+        directions.remove("right")
+    elif answer3 == "no": 
+        answer3 = "valid"
+        print "You should probably take it, just in case." 
+        inventory.append("flashlight")
+        print "Flashlight has been added to your inventory." 
+        print "You return to facing the door."
+        directions.remove("right")
+    else: 
+       print "That response is not valid."
+       print spaces
+    while answer3 != "valid":
+        print "Would you like to take it?"
+        answer3 = input ("Yes or no? ")
+        if answer3 == "yes":
+            answer3 = "valid"
+            print "You picked up the flashlight!"
+            inventory.append("flashlight")
+            print "Flashlight has been added to your inventory." 
+            print "You return to facing the door." 
+            directions.remove("right")
+        elif answer3 == "no": 
+            answer3 = "valid"
+            print "You should probably take it, just in case." 
+            inventory.append("flashlight")
+            print "Flashlight has been added to your inventory." 
+            print "You return to facing the door."
+            directions.remove("right")
+        else: 
+           print "That response is not valid."
+           print spaces
+def turn_left(): 
+    print "You are at the wall with the tools,"
+    print "There is a spade, you could use that to dig to the manure \nto see if there is anything important in there."
+    print spaces
+    print "Spade added to inventory!"
+    inventory.append("spade")
+    print spaces
+    print "Pick another tool, it might come in handy later." 
+    print tool_list 
+    picked_tool = str(input("Which tool do you want to take? "))
+    print spaces
+    
+    while picked_tool not in tool_list:
+        print "That tool is not in the list!"
+        print tool_list
+        picked_tool = str(input("Pick your tool: "))
+        print spaces
+        inventory.append(picked_tool)
+    if picked_tool in tool_list: 
+        inventory.append(picked_tool)
+        directions.remove("left")
+        print ("You have added " + picked_tool + " to your inventory!")
+def at_manure():
+    print "You are at the manure,"
+    answer6 = str(input("would you like to dig through it to see if there is anything that could be useful? "))
+    print spaces
+    if answer6 == "yes":
+        answer6 = "valid"
+        print "You dig through the manure, man does it smell."
+        print "You have found a key!"
+        print "You should try this key in the door."
+        open_door = str(input("Do you want to try the lock? "))
+        print spaces
+        if open_door == "yes":
+            open_door = "valid"
+            print "You try the lock, and it turns!"
+            print "You turn the doorknob and open the door slowly."
+            print end
+            print "It seems that you are now in some sort of agricultural center,"
+            print "You should try to find a way out."
+        elif open_door == "no": 
+            look_again = str(input("Do you want to dig through the manure again? "))
+            print spaces
+            if look_again == "yes":
+                    print "You dig through the manure again, and look!"
+                    print "You found another key, I wonder what this one is for..."
+                    inventory.append("other key")
+                    print "This new key has been added to your inventory."
+                    print spaces 
+                    print "You are not strong enough to carry any more tools \nso there is nothing else to do in here." 
+                    print spaces 
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print end
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+                    open_door = "valid"
+            elif look_again == "no": 
+                    open_door = "valid"
+                    print "You should try the door anyways, you could remain in danger if you stay in here."
+                    print spaces
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print end
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+            else:
+                    print "That response is not valid."
+        else:
+            print "That response is not valid."
+    elif answer6 == "no":
+        answer6 = "valid"
+        open_door = "not valid" 
+        print "You should dig anyways, there is no other way out besides the door,\nmaybe there is a key or something in there."
+        print spaces
+        print "You dig through the manure, man does it smell."
+        print "You have found a key!"
+        print "You should try this key in the door."
+    else:
+        print "That response is not valid."
+        
+    while answer6 != "valid":
+        print spaces 
+        answer6 = str(input("Would you like to dig through it to see if there is anything that could be useful? "))
+        print spaces
+        if answer6 == "yes":
+            answer6 = "valid"
+            print "You dig through the manure, man does it smell."
+            print "You have found a key!"
+            print "You should try this key in the door."
+            print spaces
+            print "You are not strong enough to take another tool"
+            print "so there is nothing else you can do in here."
+            open_door = str(input("Do you want to try the lock? "))
+            print spaces
+            if open_door == "yes":
+                open_door = "valid"
+                print "You try the lock, and it turns!"
+                print "You turn the doorknob and open the door slowly."
+                print end
+                print "It seems that you are now in some sort of agricultural center,"
+                print "You should try to find a way out."
+            elif open_door == "no": 
+                look_again = str(input("Do you want to dig through the manure again? "))
+                print spaces
+                if look_again == "yes":
+                    print "You dig through the manure again, and look!"
+                    print "You found another key, I wonder what this one is for..."
+                    inventory.append("other key")
+                    print "This new key has been added to your inventory."
+                    print "This new key has been added to your inventory."
+                    print spaces 
+                    print "You are not strong enough to carry any more tools \nso there is nothing else to do in here." 
+                    print spaces 
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print end
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+                    open_door = "valid"
+                elif look_again == "no": 
+                    open_door = "valid"
+                    print "You should try the door anyways, you could remain in danger if you stay in here."
+                    print spaces
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print end
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+                else:
+                    print "That response is not valid."
+            else:
+                print "That response is not valid."
+        elif answer6 == "no":
+            answer6 = "valid"
+            print "You should dig anyways, there is no other way out besides the door, \nmaybe there is a key or something in there."
+            print spaces
+            print "You dig through the manure, man does it smell."
+            print "You have found a key!"
+            print "You should try this key in the door."
+        else:
+            print "That response is not valid."
+    while open_door != "valid":
+        open_door = str(input("Do you want to try the lock? "))
+        print spaces
+        if open_door == "yes":
+            open_door = "valid"
+            print "You try the lock, and it turns!"
+            print "You turn the doorknob and open the door slowly."
+            print end
+            print "It seems that you are now in some sort of agricultural center,"
+            print "You should try to find a way out."
+        elif open_door == "no": 
+            look_again = str(input("Do you want to dig through the manure again? "))
+            print spaces
+            if look_again == "yes":
+                    print "You dig through the manure again, and look!"
+                    print "You found another key, I wonder what this one is for..."
+                    inventory.append("other key")
+                    print "This new key has been added to your inventory."
+                    print spaces 
+                    print "You are not strong enough to carry any more tools \nso there is nothing else to do in here." 
+                    print spaces 
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print end
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+                    open_door = "valid"
+            elif look_again == "no": 
+                    open_door = "valid"
+                    print "You should try the door anyways, you could remain in danger if you stay in here."
+                    print spaces
+                    print "You try the lock, and it turns!"
+                    print "You turn the doorknob and open the door slowly."
+                    print end
+                    print "It seems that you are now in some sort of agricultural center,"
+                    print "You should try to find a way out."
+            else:
+                    print "That response is not valid."
+        else:
+            print "That response is not valid."
+def intro():
+    print "You wake up and determine you are in a small room."
+    print "You quickly realize just how cramped it is in this room." 
+    print "You can feel a door in front of you, \ndo you want to try to open it?"
+    answer = input("Yes or no? ")
+    print spaces
+    if answer == "yes":
+        print "You try to open the door, but it seems that it is locked." 
+        answer = "valid"
+    elif answer == "no":
+        print "Okay, see what you can find around the room." 
+        answer = "valid"
+    else:
+        print "That response is not valid." 
+    while answer != "valid" :
+        print "Do you want to try and open the door?"
+        answer = input("Yes or no? ")
+        print spaces
+        if answer == "yes":
+            print "You try to open the door, but it seems that it is locked." 
+            answer = "valid"
+        elif answer == "no":
+            print "Okay, see what you can find around the room." 
+            answer = "valid"
+        else:
+            print "That response is not valid."
+def first_turn():
+    answer2 = str(input("Would you like to turn around, turn left, or turn right? "))
+    print spaces
+    if answer2 == "right" :
+        turn_right()
+    elif answer2 == "left" : 
+        print "You run into a bunch of tools." 
+        print "You should probably return when you can actually tell the tools apart." 
+        print "You return to facing the door." 
+    elif answer2 == "around": 
+        print "Gross, you stepped in some manure."
+        print "Return when you have something to dig through it with." 
+        print "You return to facing the door." 
+    else:
+        print "That response is not valid."
+def second_turn(): 
+    answer4 = str(input("Would you like to turn around or left? "))
+    print spaces
+    if answer4 == "left":
+        turn_left()
+    elif answer4 == "around": 
+        print "Return when you have a tool to dig through \nthis manure for something useful." 
+        print "You return to facing the door." 
+    else: 
+        print "That response is not valid." 
+def third_turn():
+    answer5 = str(input("Would you like to turn around? "))
+    print spaces
+    if answer5 == "yes":
+        answer5 = "valid"
+        at_manure()
+    elif answer5 == "no":
+        answer5 = "valid"
+        print "Well, there is nowhere else to turn, and the door is the only way out, \nyou should dig through that pile to see if anything useful is in there."
+        print spaces
+        at_manure()
+    else: 
+        print "That response is not valid" 
+    while answer5 != "valid":
+
+        answer5 = str(input("Would you like to turn around? "))
+        print spaces
+        if answer5 == "yes":
+            answer5 = "valid"
+            at_manure()
+        elif answer5 == "no":
+            answer5 = "valid"
+            print "Well, there is nowhere else to turn, and the door is the only way out, \nyou should dig through that pile to see if anything useful is in there."
+            print spaces
+            at_manure()
+        else: 
+            print "That response is not valid" 
+            
+name()
+
+intro()
+
+while "flashlight" not in inventory:
+    first_turn()
+    print spaces
+    
+while "spade" not in inventory:
+    second_turn ()
+    print spaces
+
+third_turn()
+
+import random
+"""
+After closet door, 20% chance for enemy to appear per step
+Each tool does different damage
+    Knife
+    Axe
+    Pot
+    Hoe
+    Rake
+    Hammer
+    Spade
+    Scythe
+    Pitchfork
+    Scissors
+    Shears
+Each enemy has between 10-50 health
+Turn based, if user hits, does random amount of damage, enemy hits after, chance of miss
+User starts with 100 health
+https://docs.python.org/2/library/random.html
+
+health = health of user
+enemy_health = health of the enemy
+hit_or_run = input hit or run
+damage_done = damage done by user
+damage_taken = damage done by enemy
+a = chance of user hitting/missing
+c = chance of user successfully running away
+enemy_hit = chance of enemy hitting/missing
+min_damage = min amount of damage user does
+max_damage = max amount of damage user does
+spaces = for fancy spacing purposes
+inventory = list with chosen weapon
+enemies_defeated = number of enemeies defeated, is printed if user dies or exits room
+"""
+spaces = "----------------------------------------------------------------------"
+#Player health
+health = 100
+#default damage
+(min_damage, max_damage) = (1, 10)
+inventory = ["scissors"]
+if "knife" in inventory:
+    (min_damage, max_damage) = (10, 13)
+if "axe" in inventory:
+    (min_damage, max_damage) = (15, 20)
+if "pot" in inventory:
+    health += 50
+if "hoe" in inventory:
+    (min_damage, max_damage) = (13, 20)
+if "rake" in inventory:
+    (min_damage, max_damage) = (12, 19)
+if "hammer" in inventory:
+    (min_damage, max_damage) = (10, 12)
+if "scythe" in inventory:
+    (min_damage, max_damage) = (15, 20)
+if "pitchfork" in inventory:
+    (min_damage, max_damage) = (12, 19)
+if "scissors" in inventory:
+    (min_damage, max_damage) = (10, 12)
+if "shears" in inventory:
+    (min_damage, max_damage) = (10, 13)
+
+enemies_defeated = 0
+#Enemy appears, user can hit or run. 60% chance of hitting, 30% of running.
+#Player should take damage after every hit/run decision
+def battle():
+    #Makes user health global
+    global health
+    global enemies_defeated
+    print spaces
+    print("You encountered an enemy!")
+    enemy_health = random.randint(20, 70)
+    print("Enemy health: " + str(enemy_health))
+    print("User health: " + str(health))
+    
+    #While loop runs until enemy has health lower than 0 (died)
+    while enemy_health > 0:
+        damage_taken = random.randint(int(enemy_health/6), int(enemy_health/4))
+        if damage_taken <= 0:
+            damage_taken = random.randint(1, 5)
+        damage_done = random.randint(min_damage, max_damage)
+        
+        if health <= 0:
+            print spaces
+            print("You have died.")
+            print("You defeated " + str(enemies_defeated) + " enemies.")
+            print spaces
+            break
+        
+        print spaces
+        hit_or_run = input("hit or run? ")
+        print
+        if hit_or_run == "hit":
+            a = random.randint(0, 10)
+            if a < 4:
+                print("You missed")
+                print("Enemy health: " + str(enemy_health))
+                print
+                enemy_hit = random.randint(0, 10)
+                if enemy_hit <= 7:
+                    health -= damage_taken
+                    print("Enemy dealt " + str(damage_taken) + " damage")
+                else:
+                    print("Enemy missed")
+                print("User health: " + str(health))
+            else:
+                damage_done
+                enemy_health -= damage_done
+                print("You dealt " + str(damage_done) + " damage")
+                print("Enemy health: " + str(enemy_health))
+                if enemy_health > 0:
+                    print
+                    enemy_hit = random.randint(0, 10)
+                    if enemy_hit <= 7:
+                        health -= damage_taken
+                        print("Enemy dealt " + str(damage_taken) + " damage")
+                    else:
+                        print("Enemy missed")
+                print("User health: " + str(health))
+
+        if hit_or_run == "run":
+            c = random.randint(0, 10)
+            if c < 3:
+                print("You have successfully run away!")
+                break
+            else:
+                print("Run failed!")
+                health -= damage_taken
+                print("Enemy health: " + str(enemy_health))
+                print
+                print("Enemy dealt " + str(damage_taken) + " damage")
+                print("User health: " + str(health))
+                
+        if enemy_health <= 0:
+            print spaces
+            print("You have defeated the enemy!")
+            enemies_defeated += 1
+            print enemies_defeated
+
+import random
+
+c = "carrots"
+g = "greens"
+p = "potatoes"
+o = "onions"
+chi = "chickens"
+pi = "pigs"
+co = "cows"
+alreadyBeen = []
+keyFrags_global = 0
+battleChance = random.randint(0, 20)
+
+def movement_plant():
+    global keyFrags_global
+    global battleChance
+    global health
+    global inventory
+    decision = input("There are rows of carrots, greens, potatoes and onions. Which row do you go to? ")
+    if decision == c and c not in alreadyBeen:
+        alreadyBeen.append("carrots")
+        floorCarrot = str(random.randint(1, 20))
+        keyCrop = str(random.randint(1, 3))
+        if floorCarrot >= 13:
+            idea = input("There is a carrot on the floor. Do you want to pick it up? ")
+            if idea == "yes":
+                carrot_heal = random.randint(1, 9)
+                print("You have healed " + str(carrot_heal) + " health")
+                health = carrot_heal + health
+            elif idea == "no":
+                print("You didn't pick up the carrot.")
+            else:
+                print("yes or no?")
+        selectCrop = input("There are three crops you can shovel. Which one do you shovel? ")
+        while selectCrop != keyCrop:
+            print "You found nothing of interest..."
+            selectCrop = str(input("There are three crops you can shovel. Which one do you shovel? "))
+        print "You found a key fragment!"
+        keyFrags_global += 1
+    elif decision == g and g not in alreadyBeen:
+        alreadyBeen.append("greens")
+        floorCarrot = str(random.randint(1, 20))
+        keyCrop = str(random.randint(1, 3))
+        if floorCarrot >= 13:
+            idea = input("There is a lettuce on the floor. Do you want to pick it up? ")
+            if idea == "yes":
+                print("You have healed " + str(random.randint(1, 6)) + " health")
+            elif idea == "no":
+                print("You didn't pick up the lettuce.")
+            else:
+                print("yes or no?")
+        selectCrop = input("There are three crops you can shovel. Which one do you shovel? ")
+        while selectCrop != keyCrop:
+            print "You found nothing of interest..."
+            selectCrop = str(input("There are three crops you can shovel. Which one do you shovel? "))
+        print "You found a key fragment!"
+        keyFrags_global += 1
+    elif decision == p and p not in alreadyBeen:
+        alreadyBeen.append("potatoes")
+        floorCarrot = str(random.randint(1, 20))
+        keyCrop = str(random.randint(1, 3))
+        secret = random.randint(1, 5)
+        if floorCarrot >= 13:
+            idea = input("There is a potato on the floor. Do you want to pick it up? ")
+            if idea == "yes":
+                print("You have healed " + str(random.randint(1, 15)) + " health")
+            elif idea == "no":
+                print("You didn't pick up the potato.")
+                if secret == 3 or secret == 4:
+                    print "You found a secret key in the potato!"
+                    inventory.append("otherKey")
+            else:
+                print("yes or no?")
+        selectCrop = input("There are three crops you can shovel. Which one do you shovel? ")
+        while selectCrop != keyCrop:
+            print "You found nothing of interest..."
+            selectCrop = str(input("There are three crops you can shovel. Which one do you shovel? "))
+        print "You found a key fragment!"
+        keyFrags_global += 1
+    elif decision == o and o not in alreadyBeen:
+        alreadyBeen.append("onions")
+        floorCarrot = str(random.randint(1, 20))
+        keyCrop = str(random.randint(1, 3))
+        if floorCarrot >= 13:
+            idea = input("There is an onion on the floor. Do you want to pick it up? ")
+            if idea == "yes":
+                print("You have healed " + str(random.randint(1, 10)) + " health")
+            elif idea == "no":
+                print("You didn't pick up the onion.")
+            else:
+                print("yes or no?")
+        selectCrop = input("There are three crops you can shovel. Which one do you shovel? ")
+        while selectCrop != keyCrop:
+            print "You found nothing of interest..."
+            selectCrop = str(input("There are three crops you can shovel. Which one do you shovel? "))
+        print "You found a key fragment!"
+        keyFrags_global += 1
+    else:
+        print "you can't do that!"
+    if battleChance >= 12:
+        battle()
+    battleChance = random.randint(0, 15)
+
+    
+while keyFrags_global < 4:
+    movement_plant()
+easterEgg = False
+    
+print "There are no more key fragments in the planting rows, so you move on to the animal pens."
+def movement_meat():
+    global keyFrags_global
+    global battleChance
+    whichPen = input("There are pens of chickens, pigs and cows. The chicken pen is locked. Which pen do you go to? ")
+    haveFrag = False
+    whichFrag = random.randint(1, 3)
+    check = 0
+    global easterEgg 
+    if whichPen == chi and chi not in alreadyBeen and otherKey in inventory:
+        shakeIt = input("There are chickens in this pen. Do you want to shake one?")
+        if shakeIt == yes:
+            print "You shook a chicken and it dropped an egg!"
+            easterEgg = True
+        elif shakeIt == no: 
+            movement_meat()
+        else:
+            print "you can't do that!"
+            movement_meat()
+    elif whichPen == co and co not in alreadyBeen:
+        print "There are cows. There is also a pile of hay."
+        hayCowFrag = False
+        cowCowFrag = False
+        owCow = random.randint(0,1)
+        if whichFrag == 1:
+            cowCowFrag = True
+        if whichFrag == 2:
+            heyCowFrag = True
+        while check < 2:
+            cowDecide = input("What do you do? Check the hay or check a cow? Enter 'hay' or 'cow' ")
+            if cowDecide == "cow":
+                if cowCowFrag == True:
+                    print "You checked a cow. It had a key fragment around its neck!"
+                    keyFrags_global += 1
+                    check += 1
+                else:
+                    print "You checked a cow. You found a bell. You could find more."
+                    check += 1
+            elif cowDecide == "hay":
+                if hayCowFrag == True:
+                    print "You dug in the hay. There was a key fragment in there!"
+                    keyFrags_global += 1
+                    check += 1
+                else:
+                    print "You found nothing of interest."
+                    check += 1
+            elif owCow == 1:
+               print "Ouch! A cow stepped on your foot, you lost " + str(random.randint(1, 7)) + " health."
+    elif whichPen == pi and pi not in alreadyBeen:
+        owPig = random.randint(0, 1)
+        checkPig = input("There is a pig. Do you check it? ")
+        if checkPig == "yes":
+            if whichFrag == 3:
+                print "You checked the pig. There is a key fragment on its back!"
+                keyFrags_global += 1
+            else: 
+                print "The pig just looks at you."
+        if owPig == 1:
+            print("Ouch! The pig has just bit you! You lost " + str(random.randint(1, 10)) + " health.")
+    else:
+        print "You can't do that!"
+    if battleChance >= 12:
+        battle()
+        battleChance = random.randint(0, 15)
+            
+
+while keyFrags_global == 4:
+    movement_meat()
+    
+print "You found all the key fragments! You can now escape!" 
+if easterEgg == True:
+    print "You got the easter egg!"
+print "END"
